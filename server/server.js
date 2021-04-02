@@ -11,6 +11,7 @@ const { authMiddleware } = require('./utils/auth');
 // import our typeDefs and resolvers
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const { Mongoose } = require('mongoose');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -20,6 +21,17 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware
 });
+
+// mongoose.connect((process.env.MONGODB_URL), {
+//   useNewURLparser: true,
+//   userUnifiedTopology: true,
+//   useCreateIndex: true
+// })
+// .catch((error) => 
+//   console.log(error)
+// );
+// mongoose.set("useFindAndModify", false);
+
 
 // integrate our Apollo server with the Express application as middleware
 server.applyMiddleware({ app });
